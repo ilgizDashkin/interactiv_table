@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Loader from './Loader/Loader';
+import Table from './Table/Table';
+import _ from 'lodash';
+// https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state ={
+    isLoading: true,
+    data: [],
+    sort: 'asc',  // 'desc'
+    sortField: 'id', // поле по умолчанию
+  }
+
+  async componentDidMount() {
+    const response = await fetch(` http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}`)
+    const data = await response.json()
+    //  console.log(data)
+    this.setState({ isLoading: false, data})
+  }
+
+  onSort = sortField => {  
+    const cloneData = this.state.data.concat();
+    const sortType = this.state.sort === 'asc' ? 'desc' : 'asc';
+    const orderedData = _.orderBy(cloneData, sortField, sortType);
+
+    this.setState({
+      data: orderedData,
+      sort: sortType,
+      sortField
+    })
+  }
+    
+  
+
+  render() {
+    return (
+      <div className="container">
+         {this.state.isLoading ? <Loader />: <Table 
+         data={this.state.data}
+         onSort={this.onSort}
+         />}
+      </div>
+    );
+  }
 }
 
 export default App;
+
