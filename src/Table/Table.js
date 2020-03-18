@@ -23,13 +23,19 @@ export default props => (
         </thead>
         <tbody>
             {props.data.map(item => (
-                <tr key={item.id + item.phone } onClick={props.onRowSelect.bind(null, item)}>
-                    <td>{item.id}</td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone}</td>
-                </tr>
+                // <tr key={item.id + item.phone } onClick={props.onRowSelect.bind(null, item)}>
+                //     <td>{item.id}</td>
+                //     <td>{item.firstName}</td>
+                //     <td>{item.lastName}</td>
+                //     <td>{item.email}</td>
+                //     <td>{item.phone}</td>
+                // </tr>
+                <tr key={item[0]} onClick={props.onRowSelect.bind(null, item)}>
+                <td>{item[0]}</td>
+                <td>{item[1]}</td>
+                <td>{item[2]}</td>
+                
+            </tr>
             ))}
         </tbody>
     </table>
