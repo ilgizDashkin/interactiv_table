@@ -3,6 +3,7 @@ import Loader from './Loader/Loader';
 import Table from './Table/Table';
 import _ from 'lodash';
 import DetailRowView from './DetailRowView/DetailRowView';
+import {searchZamer,average_lenght} from './Logic/logic.js';
 // https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
 
 class App extends Component {
@@ -22,8 +23,8 @@ class App extends Component {
      console.log(data.pov_info)
     this.setState({
       isLoading: false,
-      // data: _.orderBy(data, this.state.sortField, this.state.sort)
-      data: _.orderBy(data.pov_info, this.state.sortField, this.state.sort)
+      data: searchZamer(data.pov_info)
+      // data: _.orderBy(data.pov_info, this.state.sortField, this.state.sort)
     })
   }
 
@@ -53,6 +54,7 @@ class App extends Component {
           sort={this.state.sort}
           sortField={this.state.sortField}
           onRowSelect={this.onRowSelect}
+          lenght={average_lenght(this.state.data)}
         />}
         {
         this.state.row ? <DetailRowView person={this.state.row} /> : null

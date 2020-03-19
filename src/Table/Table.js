@@ -1,43 +1,41 @@
 import React from 'react';
 
 export default props => (
+    <div>
+        <p>длина КЛ {props.lenght} м.</p>
     <table className="table">
         <thead>
             <tr>
-                <th onClick={props.onSort.bind(null, 'id')}>
+                {/* <th onClick={props.onSort.bind(null, 'id')}>
                     ID {props.sortField === 'id' ? <small>{props.sort}</small> : null}
+                </th> */}
+                <th onClick={props.onSort.bind(null, 'name')}>
+                    имя {props.sortField === 'name' ? <small>{props.sort}</small> : null}
                 </th>
-                <th onClick={props.onSort.bind(null, 'firstName')}>
-                    First Name {props.sortField === 'firstName' ? <small>{props.sort}</small> : null}
+                <th onClick={props.onSort.bind(null, 'zamer')}>
+                    замер {props.sortField === 'zamer' ? <small>{props.sort}</small> : null}
                 </th>
-                <th onClick={props.onSort.bind(null, 'lastName')}>
-                    Last Name {props.sortField === 'lastName' ? <small>{props.sort}</small> : null}
+                <th>
+                    привязка 
                 </th>
-                <th onClick={props.onSort.bind(null, 'email')}>
-                    E-mail {props.sortField === 'email' ? <small>{props.sort}</small> : null}
-                </th>
-                <th onClick={props.onSort.bind(null, 'phone')}>
-                    Phone {props.sortField === 'phone' ? <small>{props.sort}</small> : null}
-                </th>
+                {/* <th onClick={props.onSort.bind(null, 'lastName')}>
+                    дата {props.sortField === 'lastName' ? <small>{props.sort}</small> : null}
+                </th> */}
             </tr>
         </thead>
         <tbody>
             {props.data.map(item => (
-                // <tr key={item.id + item.phone } onClick={props.onRowSelect.bind(null, item)}>
-                //     <td>{item.id}</td>
-                //     <td>{item.firstName}</td>
-                //     <td>{item.lastName}</td>
-                //     <td>{item.email}</td>
-                //     <td>{item.phone}</td>
-                // </tr>
-                <tr key={item[0]} onClick={props.onRowSelect.bind(null, item)}>
-                <td>{item[0]}</td>
-                <td>{item[1]}</td>
-                <td>{item[2]}</td>
-                
-            </tr>
+              
+              <tr key={item.id} onClick={props.onRowSelect.bind(null, item)}>
+                    {/* <td>{item.id}</td> */}
+                    <td>{item.name}</td>
+                    <td>{item.zamer}</td>
+                    <td>{item.priv}</td>                   
+                    {/* <td>{item.date}</td> */}
+                </tr>
             ))}
         </tbody>
     </table>
+    </div>
 )
 
