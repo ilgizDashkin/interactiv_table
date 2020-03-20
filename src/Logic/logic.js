@@ -125,30 +125,131 @@ function average_lenght(arr) {
     return average
 }
 // сортировка по замеру
-function searchZamer(arr) {
+function searchZamer(arr, from = '') {
     let massiv = [];
     for (let i = 0; i < arr.length; i++) {
         let elem1 = arr[i][1]
         let elem2 = arr[i][2]
-        // console.log(elem1);
-        // console.log(elem2);
         let str = elem2;
-        let result = str.match(/ \d+ м от /gi) //поиск замера из текста пробел м
-        if (result === null) {
-            result = str.match(/ \d+м от /gi) //поиск замера из текста без пробел м
+        let result = []
+        if (from === 'РП') {
+            result = str.match(/ \d+ м от РП/gi) //поиск замера из текста пробел м
+            if (result === null) {
+                result = str.match(/ \d+м от РП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от РП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от РП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м от Рп/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м от Рп/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от Рп/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от Рп/gi) //поиск замера из текста без пробел м
+            }
+            if (result !== null) {
+                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+            } else {
+                result = []
+                result[0] = 10000
+            }
         }
-        if (result === null) {
-            result = str.match(/ \d+м. от /gi) //поиск замера из текста без пробел м
+        else if (from === 'ПС') {
+            result = str.match(/ \d+ м от ПС/gi) //поиск замера из текста пробел м
+            if (result === null) {
+                result = str.match(/ \d+м от ПС/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от ПС/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от ПС/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м от Пс/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м от Пс/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от Пс/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от Пс/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м от от ПС/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ мот ПС/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+мот ПС/gi) //поиск замера из текста без пробел м
+            }
+            if (result !== null) {
+                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+            } else {
+                result = []
+                result[0] = 10000
+            }
         }
-        if (result === null) {
-            result = str.match(/ \d+ м. от /gi) //поиск замера из текста без пробел м
+        else if (from === 'ТП') {
+            result = str.match(/ \d+ м от ТП/gi) //поиск замера из текста пробел м
+            if (result === null) {
+                result = str.match(/ \d+м от ТП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от ТП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от ТП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м от Тп/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м от Тп/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от Тп/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от Тп/gi) //поиск замера из текста без пробел м
+            }
+            if (result !== null) {
+                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+            } else {
+                result = []
+                result[0] = 10000
+            }
         }
-        if (result !== null) {
-            result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
-        } else {
-            result = []
-            result[0] = 0
+        else {
+            result = str.match(/ \d+ м от /gi) //поиск замера из текста пробел м
+            if (result === null) {
+                result = str.match(/ \d+м от /gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+м. от /gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
+                result = str.match(/ \d+ м. от /gi) //поиск замера из текста без пробел м
+            }
+            if (result !== null) {
+                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+            } else {
+                result = []
+                result[0] = 0
+            }
         }
+
         // console.log(result[0]);
         let resultDate1 = searchDate(str)
         //конец поиск даты
