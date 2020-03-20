@@ -99,7 +99,7 @@ function all_lenght(str) {
     result = str.match(/вся длинна: \d+м/gi) //поиск длинны
     if (result !== null) {
         result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов длинны
-        console.log("вся длина " + result[0]);
+        // console.log("вся длина " + result[0]);
         return result[0]
     }
 }
@@ -116,11 +116,11 @@ function average_lenght(arr) {
         }
     }
     if (lenght_massiv.length !== 0) {
-        console.log("массив длин  " + lenght_massiv);
+        // console.log("массив длин  " + lenght_massiv);
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         let sum = lenght_massiv.reduce(reducer)
         average = Math.round(sum / lenght_massiv.length)
-        console.log("ср длин  " + average);
+        // console.log("ср длин  " + average);
     }
     return average
 }
@@ -275,7 +275,7 @@ function searchZamer(arr, from = '') {
     massiv.sort(function (a, b) { //сортировка масива по наименьшему
         return a.zamer - b.zamer
     })
-    console.log(massiv);
+    // console.log(massiv);
     return massiv
     // let massivDateSort = [];
     // massivDateSort = massiv.slice().sort(function(a, b) { //сортировка масива по наименьшему чтоб не изменять исходный массив надо slice 

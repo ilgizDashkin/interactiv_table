@@ -4,7 +4,7 @@ import Table from './Table/Table';
 import _ from 'lodash';
 import DetailRowView from './DetailRowView/DetailRowView';
 import { searchZamer, average_lenght } from './Logic/logic.js';
-import Select from './Select/Select'
+
 // https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
 
 class App extends Component {
@@ -19,10 +19,9 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    // const response = await fetch(` http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}`)
-    const response = await fetch('https://ilgiz.h1n.ru/from_sql_json.php')
+   const response = await fetch('https://ilgiz.h1n.ru/from_sql_json.php')
     const data = await response.json()
-    console.log(data.pov_info)
+    // console.log(data.pov_info)
     this.setState({
       isLoading: false,
       dataArr: data.pov_info,
@@ -47,7 +46,7 @@ class App extends Component {
   )
   _onChange = (event) => {
     const orderedData = searchZamer(this.state.dataArr, event.target.value)
-    console.log(event.target.value)
+    // console.log(event.target.value)
     this.setState({
       data: orderedData
     })
