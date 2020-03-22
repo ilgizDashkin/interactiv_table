@@ -270,7 +270,6 @@ function searchZamer(arr, from = '') {
         povr.date = resultDate1[0];
         povr.dateSec = msUTC;
         massiv.push(povr);
-
     }
     massiv.sort(function (a, b) { //сортировка масива по наименьшему
         return a.zamer - b.zamer

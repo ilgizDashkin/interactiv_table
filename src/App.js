@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Loader from './Loader/Loader';
 import Table from './Table/Table';
+import TableNew from './Table/TableNew';
 import _ from 'lodash';
-import DetailRowView from './DetailRowView/DetailRowView';
 import { searchZamer, average_lenght } from './Logic/logic.js';
 
 // https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
@@ -15,18 +15,27 @@ class App extends Component {
     sort: 'asc',  // 'desc'
     sortField: 'id', // поле по умолчанию
     row: null,
-    sortZamer: ''
+    sortZamer: '',
+    data_new: [],
+    query: ''
+  }
+  requestData = async () => {
+    if (this.state.query.length>2){
+      const response = await fetch(`https://ilgiz.h1n.ru/from_sql_json.php?&query=${this.state.query}`)
+      const data = await response.json()
+      console.log(data)
+      this.setState({
+        isLoading: false,
+        dataArr: data.pov_info,
+        data: searchZamer(data.pov_info),
+        data_new: data.pov_new
+      })
+    }
+    
   }
 
   async componentDidMount() {
-   const response = await fetch('https://ilgiz.h1n.ru/from_sql_json.php')
-    const data = await response.json()
-    // console.log(data.pov_info)
-    this.setState({
-      isLoading: false,
-      dataArr: data.pov_info,
-      data: searchZamer(data.pov_info),
-    })
+    this.requestData()
   }
 
   onSort = sortField => {
@@ -40,10 +49,6 @@ class App extends Component {
     })
   }
 
-  onRowSelect = row => (
-    // console.log(row)
-    this.setState({ row })
-  )
   _onChange = (event) => {
     const orderedData = searchZamer(this.state.dataArr, event.target.value)
     // console.log(event.target.value)
@@ -51,11 +56,17 @@ class App extends Component {
       data: orderedData
     })
   }
+  handleChange = (event) => {
+    this.setState({ query: event.target.value });
+  }
 
   render() {
     return (
       <div className="container bg-dark text-center text-white">
         <div className='container p-2'>
+          <p>введите название КЛ, не менее 3 символов</p>
+          <input className='form-control' type="text" value={this.state.query} onChange={this.handleChange} />
+          <button className='btn btn-info btn-lg btn-block' onClick={this.requestData}>поиск</button>
           <select className="form-control"
             onChange={this._onChange}>
             <option value="">по замеру</option>
@@ -64,17 +75,22 @@ class App extends Component {
             <option value="ТП">замер от ТП</option>
           </select>
         </div>
-        {this.state.isLoading ? <Loader /> : <Table
-          data={this.state.data}
-          onSort={this.onSort}
-          sort={this.state.sort}
-          sortField={this.state.sortField}
-          onRowSelect={this.onRowSelect}
-          lenght={average_lenght(this.state.data)}
-        />}
-        {
-          this.state.row ? <DetailRowView person={this.state.row} /> : null
+        {this.state.isLoading ? <Loader /> :
+          <div>
+            {this.state.data.length ? <Table
+              data={this.state.data}
+              onSort={this.onSort}
+              sort={this.state.sort}
+              sortField={this.state.sortField}
+
+              lenght={average_lenght(this.state.data)}
+            /> : <p>в основной базе не ничего не найдено :(</p>}
+            {this.state.data_new.length ? <TableNew
+              data={this.state.data_new}
+            /> : <p>в новой базе не ничего не найдено :(</p>}
+          </div>
         }
+
       </div>
     );
   }
