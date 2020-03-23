@@ -4,6 +4,8 @@ import Table from './Table/Table';
 import TableNew from './Table/TableNew';
 import _ from 'lodash';
 import { searchZamer, average_lenght } from './Logic/logic.js';
+// сначала npm install anychart-react
+import AnyChart from 'anychart-react'
 
 // https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
 
@@ -19,6 +21,8 @@ class App extends Component {
     data_new: [],
     query: ''
   }
+
+  
   requestData = async () => {
     if (this.state.query.length>2){
       const response = await fetch(`https://ilgiz.h1n.ru/from_sql_json.php?&query=${this.state.query}`)
@@ -30,8 +34,7 @@ class App extends Component {
         data: searchZamer(data.pov_info),
         data_new: data.pov_new
       })
-    }
-    
+    }   
   }
 
   async componentDidMount() {
@@ -45,8 +48,9 @@ class App extends Component {
     this.setState({
       data: orderedData,
       sort: sortType,
-      sortField
+      sortField,
     })
+    console.log(this.state.data.map((elm)=>elm.zamer))
   }
 
   _onChange = (event) => {
@@ -60,12 +64,13 @@ class App extends Component {
     this.setState({ query: event.target.value });
   }
 
+
   render() {
     return (
       <div className="container bg-dark text-center text-white">
         <div className='container p-2'>
-          <p>введите название КЛ, не менее 3 символов</p>
-          <input className='form-control' type="text" value={this.state.query} onChange={this.handleChange} />
+          {/* <p>введите название КЛ, не менее 3 символов</p> */}
+          <input className='form-control' type="text" value={this.state.query} onChange={this.handleChange} placeholder='введите КЛ, не менее 3 символов'/>
           <button className='btn btn-info btn-lg btn-block' onClick={this.requestData}>поиск</button>
           <select className="form-control"
             onChange={this._onChange}>
@@ -75,6 +80,12 @@ class App extends Component {
             <option value="ТП">замер от ТП</option>
           </select>
         </div>
+        {this.state.data.length ?<AnyChart
+      type='column'
+      // data={[[1, 2], [3, 5]]}
+      data={this.state.data.map((elm)=>(elm.zamer>0&&elm.zamer<10000)?elm.zamer:null)} 
+      title="замеры до места повреждения"
+  />:<p>нет графика замеров :(</p>}
         {this.state.isLoading ? <Loader /> :
           <div>
             {this.state.data.length ? <Table
@@ -90,7 +101,6 @@ class App extends Component {
             /> : <p>в новой базе не ничего не найдено :(</p>}
           </div>
         }
-
       </div>
     );
   }
