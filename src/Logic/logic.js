@@ -276,16 +276,6 @@ function searchZamer(arr, from = '') {
     })
     // console.log(massiv);
     return massiv
-    // let massivDateSort = [];
-    // massivDateSort = massiv.slice().sort(function(a, b) { //сортировка масива по наименьшему чтоб не изменять исходный массив надо slice 
-    //     return a.dateSec - b.dateSec
-    // })
-
-
-    // var mass2 = dateGraf(massivDateSort)
-    // console.log(mass2)
-    // // console.log(massivDateSort);
-    // graf1(mass2);
 }
 
 export { searchZamer, average_lenght }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Loader from './Loader/Loader';
+import Loader from './Loader/Loader';//картинка загрузки
 import Table from './Table/Table';
 import TableNew from './Table/TableNew';
-import _ from 'lodash';
+import _ from 'lodash';//для сортировки таблицы
 import { searchZamer, average_lenght } from './Logic/logic.js';
 // сначала npm install anychart-react
 import AnyChart from 'anychart-react'
@@ -22,9 +22,9 @@ class App extends Component {
     query: ''
   }
 
-  
+// запрос к серверу за данными
   requestData = async () => {
-    if (this.state.query.length>2){
+    if (this.state.query.length > 2) {
       const response = await fetch(`https://ilgiz.h1n.ru/from_sql_json.php?&query=${this.state.query}`)
       const data = await response.json()
       console.log(data)
@@ -34,13 +34,13 @@ class App extends Component {
         data: searchZamer(data.pov_info),
         data_new: data.pov_new
       })
-    }   
+    }
   }
 
   async componentDidMount() {
     this.requestData()
   }
-
+// здесь используем библиотеку lodash для сортировки таблицы
   onSort = sortField => {
     const cloneData = this.state.data.concat();
     const sortType = this.state.sort === 'asc' ? 'desc' : 'asc';
@@ -50,7 +50,7 @@ class App extends Component {
       sort: sortType,
       sortField,
     })
-    console.log(this.state.data.map((elm)=>elm.zamer))
+    console.log(this.state.data.map((elm) => elm.zamer))
   }
 
   _onChange = (event) => {
@@ -64,13 +64,12 @@ class App extends Component {
     this.setState({ query: event.target.value });
   }
 
-
   render() {
     return (
       <div className="container bg-dark text-center text-white">
         <div className='container p-2'>
-          {/* <p>введите название КЛ, не менее 3 символов</p> */}
-          <input className='form-control' type="text" value={this.state.query} onChange={this.handleChange} placeholder='введите КЛ, не менее 3 символов'/>
+        <a type="button" className="btn btn-danger btn-lg btn-block" href ='https://ilgiz.h1n.ru/index.php'>на главную</a>
+          <input className='form-control' type="text" value={this.state.query} onChange={this.handleChange} placeholder='введите КЛ, не менее 3 символов' />
           <button className='btn btn-info btn-lg btn-block' onClick={this.requestData}>поиск</button>
           <select className="form-control"
             onChange={this._onChange}>
@@ -80,12 +79,14 @@ class App extends Component {
             <option value="ТП">замер от ТП</option>
           </select>
         </div>
-        {this.state.data.length ?<AnyChart
-      type='column'
-      // data={[[1, 2], [3, 5]]}
-      data={this.state.data.map((elm)=>(elm.zamer>0&&elm.zamer<10000)?elm.zamer:null)} 
-      title="замеры до места повреждения"
-  />:<p>нет графика замеров :(</p>}
+        {this.state.data.length ? <AnyChart
+          // type='column'
+          type='bar'
+          // data={[[1, 2], [3, 5]]}
+          // из стейта берем замеры в массив
+          data={this.state.data.map((elm) => (elm.zamer > 0 && elm.zamer < 10000) ? elm.zamer : null)}
+          title="замеры до места повреждения"
+        /> : <p>нет графика замеров :(</p>}
         {this.state.isLoading ? <Loader /> :
           <div>
             {this.state.data.length ? <Table
@@ -93,7 +94,6 @@ class App extends Component {
               onSort={this.onSort}
               sort={this.state.sort}
               sortField={this.state.sortField}
-
               lenght={average_lenght(this.state.data)}
             /> : <p>в основной базе не ничего не найдено :(</p>}
             {this.state.data_new.length ? <TableNew
