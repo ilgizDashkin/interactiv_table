@@ -34,11 +34,18 @@ class App extends Component {
         data: searchZamer(data.pov_info),
         data_new: data.pov_new
       })
+      localStorage.state = JSON.stringify(this.state);//сохраняем стейт в локалсторадже
     }
   }
 
   async componentDidMount() {
     this.requestData()
+    // console.log('state')
+    const lastState=localStorage.state
+    if (lastState){
+      // console.log(lastState)
+      this.setState(JSON.parse( localStorage.state ))
+    }  
   }
 // здесь используем библиотеку lodash для сортировки таблицы
   onSort = sortField => {
@@ -50,7 +57,8 @@ class App extends Component {
       sort: sortType,
       sortField,
     })
-    console.log(this.state.data.map((elm) => elm.zamer))
+    localStorage.state = JSON.stringify(this.state);//сохраняем стейт в локалсторадже
+    // console.log(this.state.data.map((elm) => elm.zamer))
   }
 
   _onChange = (event) => {
@@ -59,7 +67,9 @@ class App extends Component {
     this.setState({
       data: orderedData
     })
+    localStorage.state = JSON.stringify(this.state);//сохраняем стейт в локалсторадже
   }
+  //выбираем сортировку от пс рп тп
   handleChange = (event) => {
     this.setState({ query: event.target.value });
   }
