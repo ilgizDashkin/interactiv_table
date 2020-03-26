@@ -11,7 +11,7 @@ export default props => (
                     имя {props.sortField === 'name' ? <small>{props.sort}</small> : null}
                 </th>
                 <th onClick={props.onSort.bind(null, 'zamer')}>
-                    замер {props.sortField === 'zamer' ? <small>{props.sort}</small> : null}
+                    м. {props.sortField === 'zamer' ? <small>{props.sort}</small> : null}
                 </th>
                 <th>
                     место повреждения 
@@ -24,8 +24,8 @@ export default props => (
               
               <tr key={item.id}>
                     
-                    <td className="bg-success">{item.name}</td>
-                    <td className="bg-info">{item.zamer}</td>
+                    <td className="bg-success">{item.name.toLowerCase()}</td>
+                    <td className="bg-info">{((item.zamer===10000)||(item.zamer===0))?'-':item.zamer}</td>
                     <td>{item.priv}</td>                   
                     
                 </tr>

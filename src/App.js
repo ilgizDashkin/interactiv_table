@@ -6,6 +6,9 @@ import _ from 'lodash';//для сортировки таблицы
 import { searchZamer, average_lenght } from './Logic/logic.js';
 // сначала npm install anychart-react
 import AnyChart from 'anychart-react'
+//npm i @vkontakte/vkui @vkontakte/icons @vkontakte/vk-bridge
+import { View, Panel, PanelHeader } from '@vkontakte/vkui';//пакеты из вк
+import '@vkontakte/vkui/dist/vkui.css';
 
 // https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
 
@@ -76,7 +79,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container bg-dark text-center text-white">
+      
+      <View activePanel="main">
+      <Panel id="main">
+        <PanelHeader>поиск КЛ</PanelHeader>
+        <div className="container bg-dark text-center text-white">
         <div className='container p-2'>
         <a type="button" className="btn btn-danger btn-lg btn-block" href ='https://ilgiz.h1n.ru/index.php'>на главную</a>
           <input className='form-control' type="text" value={this.state.query} onChange={this.handleChange} placeholder='введите КЛ, не менее 3 символов' />
@@ -112,6 +119,8 @@ class App extends Component {
           </div>
         }
       </div>
+      </Panel>
+    </View>
     );
   }
 }
