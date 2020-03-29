@@ -138,6 +138,9 @@ function searchZamer(arr, from = '') {
                 result = str.match(/ \d+м от РП/gi) //поиск замера из текста без пробел м
             }
             if (result === null) {
+                result = str.match(/ \d+м. отРП/gi) //поиск замера из текста без пробел м
+            }
+            if (result === null) {
                 result = str.match(/ \d+м. от РП/gi) //поиск замера из текста без пробел м
             }
             if (result === null) {
@@ -232,15 +235,15 @@ function searchZamer(arr, from = '') {
             }
         }
         else {
-            result = str.match(/ \d+ м от /gi) //поиск замера из текста пробел м
+            result = str.match(/ \d+ м от/gi) //поиск замера из текста пробел м
             if (result === null) {
-                result = str.match(/ \d+м от /gi) //поиск замера из текста без пробел м
+                result = str.match(/ \d+м от/gi) //поиск замера из текста без пробел м
             }
             if (result === null) {
-                result = str.match(/ \d+м. от /gi) //поиск замера из текста без пробел м
+                result = str.match(/ \d+м. от/gi) //поиск замера из текста без пробел м
             }
             if (result === null) {
-                result = str.match(/ \d+ м. от /gi) //поиск замера из текста без пробел м
+                result = str.match(/ \d+ м. от/gi) //поиск замера из текста без пробел м
             }
             if (result !== null) {
                 result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
