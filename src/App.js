@@ -22,7 +22,8 @@ class App extends Component {
     row: null,
     sortZamer: '',
     data_new: [],
-    query: ''
+    query: '',
+    graf: false
   }
 
   // запрос к серверу за данными
@@ -47,7 +48,7 @@ class App extends Component {
     // console.log('state')
     const lastState = localStorage.state
     if (lastState) {
-      console.log(lastState)
+      // console.log(lastState)
       this.setState(JSON.parse(localStorage.state))
     }
   }
@@ -78,7 +79,7 @@ class App extends Component {
     this.setState({ query: event.target.value });
   }
 
-  // data = [
+  // data_grapf = [
   //   ["тп-301 600м тп-3002"],
   //   ["тп-301 500м тп-3002"]
   // ];
@@ -92,7 +93,7 @@ class App extends Component {
         res_arr.push(elem_arr)
       }
     }
-    console.log(res_arr)
+    // console.log(res_arr)
     return res_arr
   }
 
@@ -114,30 +115,47 @@ class App extends Component {
                 <option value="ТП">замер от ТП</option>
               </select>
             </div>
-            {this.state.data.length ? <AnyChart
-              // type='column'
-              // type='bar'
-              // width= '800'
-              height={this.data_grapf().length * 15 > 800 ? 800 : this.data_grapf().length * 25}
-              type='wordtree'
-              // data={[[1, 2], [3, 5]]}
-              // из стейта берем замеры в массив
-              // data={this.state.data.map((elm) => (elm.zamer > 0 && elm.zamer < 10000) ? elm.zamer : null)}
-              data={this.data_grapf()}
-              title="замеры до места повреждения"
-            /> : <p>нет графика замеров :(</p>}
-            {this.state.isLoading ? <Loader /> :
+
+            {this.state.data.length ?//здесь выводим граф если есть данные
               <div>
-                {this.state.data.length ? <Table
-                  data={this.state.data}
-                  onSort={this.onSort}
-                  sort={this.state.sort}
-                  sortField={this.state.sortField}
-                  lenght={average_lenght(this.state.data)}
-                /> : <p>в основной базе не ничего не найдено :(</p>}
-                {this.state.data_new.length ? <TableNew
-                  data={this.state.data_new}
-                /> : <p>в новой базе не ничего не найдено :(</p>}
+                {this.state.graf ?//проверяем видимость
+                  <>
+                    <button className='btn btn-secondary btn-lg btn-block' onClick={() => this.setState({ graf: false })}>закрыть граф замеров</button>
+                    <AnyChart
+                      // type='column'
+                      // type='bar'
+                      // width= '800'
+                      height={this.data_grapf().length * 15 > 800 ? 800 : this.data_grapf().length * 25}//выбираем высоту графика исходя из данных
+                      type='wordtree'
+                      // data={[[1, 2], [3, 5]]}
+                      // из стейта берем замеры в массив
+                      // data={this.state.data.map((elm) => (elm.zamer > 0 && elm.zamer < 10000) ? elm.zamer : null)}
+                      data={this.data_grapf()}
+                      // title="замеры до повреждения"
+                    />
+                  </> : <button className='btn btn-secondary btn-lg btn-block' onClick={() => this.setState({ graf: true })}>показать граф замеров</button>
+                }
+              </div>
+              : null
+            }
+
+            {this.state.isLoading ?
+              <Loader /> :
+              <div>
+                {this.state.data.length ?
+                  <Table
+                    data={this.state.data}
+                    onSort={this.onSort}
+                    sort={this.state.sort}
+                    sortField={this.state.sortField}
+                    lenght={average_lenght(this.state.data)}
+                  /> :
+                  <p>в основной базе не ничего не найдено :(</p>}
+                {this.state.data_new.length ?
+                  <TableNew
+                    data={this.state.data_new}
+                  /> :
+                  <p>в новой базе не ничего не найдено :(</p>}
               </div>
             }
           </div>

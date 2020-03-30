@@ -124,6 +124,120 @@ function average_lenght(arr) {
     }
     return average
 }
+// search from RP
+function fromRP(str) {
+    let result = []
+    result = str.match(/ \d+ м от РП/gi) //поиск замера из текста пробел м
+    if (result === null) {
+        result = str.match(/ \d+м от РП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. отРП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. от РП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м. от РП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м от Рп/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м от Рп/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. от Рп/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м. от Рп/gi) //поиск замера из текста без пробел м
+    }
+    if (result !== null) {
+        result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+    } else {
+        result = []
+        result[0] = 10000
+    }
+    return result
+}
+// search from PC
+function fromPC(str) {
+    let result = []
+    result = str.match(/ \d+ м от ПС/gi) //поиск замера из текста пробел м
+    if (result === null) {
+        result = str.match(/ \d+м от ПС/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. от ПС/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м. от ПС/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м от Пс/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м от Пс/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. от Пс/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м. от Пс/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м от от ПС/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ мот ПС/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+мот ПС/gi) //поиск замера из текста без пробел м
+    }
+    if (result !== null) {
+        result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+    } else {
+        result = []
+        result[0] = 10000
+    }
+    return result
+}
+// search from TP
+function fromTP(str) {
+    let result = []
+    result = str.match(/ \d+ м от ТП/gi) //поиск замера из текста пробел м
+    if (result === null) {
+        result = str.match(/ \d+м от ТП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. отТП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. от ТП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м. от ТП/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м от Тп/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м от Тп/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+м. от Тп/gi) //поиск замера из текста без пробел м
+    }
+    if (result === null) {
+        result = str.match(/ \d+ м. от Тп/gi) //поиск замера из текста без пробел м
+    }
+    if (result !== null) {
+        result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
+    } else {
+        result = []
+        result[0] = 10000
+    }
+    return result
+}
 // сортировка по замеру
 function searchZamer(arr, from = '') {
     let massiv = [];
@@ -132,106 +246,30 @@ function searchZamer(arr, from = '') {
         let elem2 = arr[i][2]
         let str = elem2;
         let result = []
+        const len_kl=all_lenght(str)
         if (from === 'РП') {
-            result = str.match(/ \d+ м от РП/gi) //поиск замера из текста пробел м
-            if (result === null) {
-                result = str.match(/ \d+м от РП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. отРП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. от РП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м. от РП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м от Рп/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м от Рп/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. от Рп/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м. от Рп/gi) //поиск замера из текста без пробел м
-            }
-            if (result !== null) {
-                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
-            } else {
-                result = []
-                result[0] = 10000
+            result = fromRP(str)
+            // пробуем найти замер от через всю длинну
+            const PC=fromPC(str)[0]
+            if (result[0] === 10000 && PC !== 10000 && len_kl !== undefined) {
+                result[0] = Number(len_kl) - Number(PC)
+                // console.log('вычисленный замер от RP '+result)
             }
         }
         else if (from === 'ПС') {
-            result = str.match(/ \d+ м от ПС/gi) //поиск замера из текста пробел м
-            if (result === null) {
-                result = str.match(/ \d+м от ПС/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. от ПС/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м. от ПС/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м от Пс/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м от Пс/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. от Пс/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м. от Пс/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м от от ПС/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ мот ПС/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+мот ПС/gi) //поиск замера из текста без пробел м
-            }
-            if (result !== null) {
-                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
-            } else {
-                result = []
-                result[0] = 10000
+            result = fromPC(str)
+            const RP=fromRP(str)[0]
+            if (result[0] === 10000 && RP !== 10000 && len_kl !== undefined) {
+                result[0] = Number(len_kl) - Number(RP)
+                // console.log('вычисленный замер от PC '+result)
             }
         }
         else if (from === 'ТП') {
-            result = str.match(/ \d+ м от ТП/gi) //поиск замера из текста пробел м
-            if (result === null) {
-                result = str.match(/ \d+м от ТП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. от ТП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м. от ТП/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м от Тп/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м от Тп/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+м. от Тп/gi) //поиск замера из текста без пробел м
-            }
-            if (result === null) {
-                result = str.match(/ \d+ м. от Тп/gi) //поиск замера из текста без пробел м
-            }
-            if (result !== null) {
-                result[0] = result[0].replace(/[^-0-9]/gim, ''); //удаление лишних символов из замера
-            } else {
-                result = []
-                result[0] = 10000
+            result = fromTP(str)
+            const RP=fromRP(str)[0]
+            if (result[0] === 10000 && RP !== 10000 && len_kl !== undefined) {
+                result[0] = Number(len_kl) - Number(RP)
+                // console.log('вычисленный замер от TP '+result)
             }
         }
         else {
