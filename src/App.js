@@ -7,7 +7,7 @@ import { searchZamer, average_lenght } from './Logic/logic.js';
 // сначала npm install anychart-react
 import AnyChart from 'anychart-react'
 //npm i @vkontakte/vkui @vkontakte/icons @vkontakte/vk-bridge
-import { View, Panel, PanelHeader } from '@vkontakte/vkui';//пакеты из вк
+import { View, Panel, PanelHeader,Search } from '@vkontakte/vkui';//пакеты из вк
 import '@vkontakte/vkui/dist/vkui.css';
 
 // https://abcinblog.blogspot.com/2019/02/react-i.html сделано по урокам
@@ -105,7 +105,7 @@ class App extends Component {
           <div className="container bg-dark text-center text-white">
             <div className='container p-2'>
               <a type="button" className="btn btn-danger btn-lg btn-block" href='https://ilgiz.h1n.ru/index.php'>на главную</a>
-              <input className='form-control' type="search" value={this.state.query} onChange={this.handleChange} placeholder='введите КЛ, не менее 3 символов' />
+              <Search  value={this.state.query} onChange={this.handleChange} placeholder='введите КЛ, не менее 3 символов' />
               <button className='btn btn-info btn-lg btn-block' onClick={this.requestData}>поиск</button>
               <select className="form-control"
                 onChange={this._onChange}>
