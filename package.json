@@ -11,7 +11,7 @@
     "@vkontakte/vkui": "^3.5.4",
     "anychart-react": "^1.4.1",
     "bootstrap": "^4.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0"
